@@ -1,0 +1,37 @@
+# Runs the checks on every push and pull request, on the two platforms the app is built for.
+# (The App workflow runs the same checks too, but only when a release is built.)
+name: Checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-14, windows-2022]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    env:
+      PYTHONUTF8: '1'          # UTF-8 everywhere (Windows consoles default to a legacy code page)
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - name: Set up
+        run: uv sync --python 3.12 --extra app
+      - name: Checks (no RICOH file needed)
+        shell: bash
+        run: |
+          for t in tests/test_*.py; do
+            echo "== $t"
+            uv run python "$t" || exit 1
+          done
