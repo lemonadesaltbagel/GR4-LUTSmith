@@ -1,6 +1,6 @@
 """The app and the command line must build the same firmware, byte for byte, from the same LUT and choices.
 Usage: GR4_FIRMWARE=… GR4_LUT=… GR4_DNG=… identity.py <folder>  (full-length fit; takes a few minutes)."""
-import os, subprocess, sys, time
+import os, subprocess, time
 if __name__ == '__main__':                   # helper processes of the turns import this file: they run nothing
     exec(open(os.path.join(os.path.dirname(__file__), 'drive_app.py'), encoding='utf-8').read())
     FW = os.environ.get('GR4_FIRMWARE')            # the official fwdc248b.bin

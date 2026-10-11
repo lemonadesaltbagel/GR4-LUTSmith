@@ -1036,7 +1036,7 @@ def check_name(name, slot, camera_language='English'):
         raise Refused(f'{SLOT_NAMES[slot]} takes names of up to {r["most"]} characters ({name!r} has {len(name)})')
     notes, question = [], None
     if r['long']:
-        notes.append(f'long names may be cut off on some screens')
+        notes.append('long names may be cut off on some screens')
     if r['scripts']:
         kinds = ', '.join(r['scripts'])
         if r['question']:
@@ -1421,7 +1421,6 @@ class Lut:
             n = head['LUT_1D_SIZE']
             if not 2 <= n <= 65536 or len(v) != n:
                 raise Refused(f'{path}: LUT_1D_SIZE {n} but {len(v)} rows')
-            g = np.linspace(0, 1, 33)
             xs = np.linspace(0, 1, n)
             x = grid(33)
             out = np.stack([np.interp(x[:, c], xs, v[:, c]) for c in range(3)], 1)
@@ -1678,7 +1677,7 @@ class Fitter:
 
     def loss_grad(self, theta, raw, phi=None):
         import numpy as np
-        v, N = self.v, len(self.v)
+        v = self.v
         M = np.concatenate([theta, 1 - theta.sum(1, keepdims=True)], 1)
         z = v @ M.T
         zc = np.clip(z, 0, 255)
@@ -2239,7 +2238,8 @@ def fit_lut(path, space='srgb', curve='auto', photo=None, iters=1500, log=print,
         e = evaluate(look, y, ty)['de00_mean']
         h = evaluate(look, *held)['de00_mean'] if held else None
         ev = everyday(look, lut, space)
-        log(f'  {mode + (f" + after (photo {photo_weight}{"" if init else ", from scratch"})" if post else ""):7s} ΔE00 {e:.3f}' + (f'  photo {h:.3f}' if h is not None else '')
+        after = f' + after (photo {photo_weight}' + ('' if init else ', from scratch') + ')'
+        log(f'  {mode + (after if post else ""):7s} ΔE00 {e:.3f}' + (f'  photo {h:.3f}' if h is not None else '')
             + f'  ColorChecker {ev["colorchecker"]["de00_mean"]:.3f}  greys {ev["greys"]["de00_mean"]:.3f}')
         return dict(e=e, h=h, cc=ev['colorchecker']['de00_mean'], grey=ev['greys']['de00_mean'], look=look)
     def better(new, old):

@@ -1,5 +1,4 @@
 """The window's own widgets, drawn with the current theme (theme.TOKENS)."""
-from pathlib import Path
 
 from PySide6.QtCore import QPointF, QRectF, QSize, Qt, QTimer, Signal
 from PySide6.QtGui import QColor, QFont, QImage, QPainter, QPainterPath, QPen
