@@ -18,7 +18,7 @@ Usage
   python3 gr4_lutsmith.py check    ANY_fwdc248b.bin
   python3 gr4_lutsmith.py selftest OFFICIAL_fwdc248b.bin
 
-Python 3.8 or newer with numpy. --photo and preview also need rawpy and pillow.
+Python 3.9 or newer with numpy. --photo and preview also need rawpy and pillow.
 """
 import argparse
 import base64
@@ -2655,8 +2655,8 @@ def main(argv=None):
     s.add_argument('input', type=Path)
     a = ap.parse_args(argv)
     sys.stdout.reconfigure(line_buffering=True)
-    if sys.version_info < (3, 8):
-        print('Python 3.8 or newer is required', file=sys.stderr)
+    if sys.version_info < (3, 9):
+        print('Python 3.9 or newer is required', file=sys.stderr)
         return 2
     try:
         if a.cmd == 'check':
