@@ -2239,7 +2239,8 @@ def fit_lut(path, space='srgb', curve='auto', photo=None, iters=1500, log=print,
         e = evaluate(look, y, ty)['de00_mean']
         h = evaluate(look, *held)['de00_mean'] if held else None
         ev = everyday(look, lut, space)
-        log(f'  {mode + (f" + after (photo {photo_weight}{"" if init else ", from scratch"})" if post else ""):7s} ΔE00 {e:.3f}' + (f'  photo {h:.3f}' if h is not None else '')
+        after = f' + after (photo {photo_weight}' + ('' if init else ', from scratch') + ')'
+        log(f'  {mode + (after if post else ""):7s} ΔE00 {e:.3f}' + (f'  photo {h:.3f}' if h is not None else '')
             + f'  ColorChecker {ev["colorchecker"]["de00_mean"]:.3f}  greys {ev["greys"]["de00_mean"]:.3f}')
         return dict(e=e, h=h, cc=ev['colorchecker']['de00_mean'], grey=ev['greys']['de00_mean'], look=look)
     def better(new, old):
