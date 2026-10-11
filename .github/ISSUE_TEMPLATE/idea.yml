@@ -1,0 +1,15 @@
+name: Idea
+description: A look, a slot, a workflow or a platform you wish GR4-LUTSmith handled
+labels: [enhancement]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would you like it to do?
+      description: The concrete thing, not the solution — what would you do with it?
+    validations:
+      required: true
+  - type: textarea
+    id: today
+    attributes:
+      label: What do you do today instead?

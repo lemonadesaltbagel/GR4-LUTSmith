@@ -1,0 +1,38 @@
+name: Bug report
+description: Something in GR4-LUTSmith does not work as the guide says it should
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting. Firmware questions (the camera refuses the file, the look
+        looks wrong on the camera) are welcome here too.
+  - type: dropdown
+    id: what
+    attributes:
+      label: What did you use?
+      options:
+        - The app (GR4-LUTSmith window)
+        - The command line
+        - The camera after flashing
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: OS and version
+      placeholder: macOS 15.2 / Windows 11
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: What happened, step by step?
+      description: What you did, what you expected, what you got. Terminal output goes here too.
+    validations:
+      required: true
+  - type: textarea
+    id: files
+    attributes:
+      label: Files
+      description: The .cube LUT (or a link to it) helps a lot. Please never attach the RICOH firmware file.
