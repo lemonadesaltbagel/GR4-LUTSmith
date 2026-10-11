@@ -1,0 +1,10 @@
+# Images, icons and fonts are binary; never let a tool rewrite their line endings.
+*.png binary
+*.ico binary
+*.icns binary
+*.ttf binary
+# The firmware files are never committed, but keep them binary just in case.
+*.bin binary
+# The lockfile and the data blobs are generated; hide them from language stats and diffs.
+uv.lock linguist-generated=true
+lutsmith_app/assets/i18n/*.json -diff
