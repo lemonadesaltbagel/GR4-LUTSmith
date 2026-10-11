@@ -503,11 +503,12 @@ uv run gr4_lutsmith.py make my_look.cube ~/Downloads/fwdc248b.bin --slot vivid -
 
 ## Using a look someone shared
 
-`look.json` holds only the look itself: its colour settings and how well they
-fit the LUT. Nothing about the slot, the name or the icon, and no folders of
-your computer (only the LUT's file name). Whoever has the file can build the
-firmware directly, without the LUT and without fitting, and gets the same
-firmware, byte for byte, as its maker for the same slot, name and icon.
+`look.json` holds the look itself: its colour settings and how well they fit
+the LUT, and the LUT's file name — no folders of your computer. When its maker
+chose a slot, a name or an icon, the file carries those too (with the name's
+camera language). Whoever has the file can build the firmware directly,
+without the LUT and without fitting, and gets the same firmware, byte for
+byte, as its maker.
 
 The file can have any name, so rename it as you like before you share it
 (`portra-400.json`, …):
@@ -521,7 +522,8 @@ uv run gr4_lutsmith.py build portra-400.json ~/Downloads/fwdc248b.bin --slot viv
 - Slot, name and icon are yours to choose, as in
   [Choosing the slot](#choosing-the-slot), [Naming the slot](#naming-the-slot)
   and [Your own icon](#your-own-icon). Without `--slot`, the look goes on
-  High Contrast.
+  High Contrast. A file that carries its maker's name or icon keeps them;
+  `--no-name` and `--no-icon` drop them and keep the slot's own.
 - Several looks: write each file's own `--slot`, `--name` and `--icon` right
   after it:
 
@@ -616,7 +618,7 @@ python3 gr4_lutsmith.py make my_look.cube ~/Downloads/fwdc248b.bin --photo R0001
 | Sliders opening at 0 (grain off) | made of the same changes as the tested build (a subset of them); not installed on its own yet |
 | Looks that need two or three tone curves (colour casts, toned looks) | three curves tested on a GR IV 1.11 |
 | Hue sectors | tested on a GR IV 1.11 in RAW Development with a film-simulation LUT (ISO 200, a daylight scene of greens and yellows): the camera matched the tool's prediction, the difference to the LUT fell by about 30 % on coloured areas, and no gaps between colours were visible. Reds, blues, purples and higher ISO have not been checked on the camera yet |
-| Colour after the curves (`--after-curves`, optional) | 
+| Colour after the curves (`--after-curves`, optional) | not tested on a camera yet |
 | Looks on the Cinema (Yellow) / Cinema (Green) slots | tested on a GR IV 1.11: works |
 | Looks on the other slots (Vivid, Positive Film, Negative Film, Bleach Bypass, Retro, the monochrome slots) | tested on a GR IV 1.11: works |
 | Your own name for the slot (`--name`) | tested on a GR IV 1.11: works |
@@ -633,7 +635,7 @@ GR4-LUTSmith/
 ├── gr4_lutsmith.py      the tool (the command line, and the engine the app uses)
 ├── lutsmith_app/        the app: window, translations (assets/i18n), icons and fonts
 ├── packaging/           building the app (packaging/build.py), its icons and licence texts
-├── tests/test_app.py    checks run before every app build
+├── tests/               checks run before every app build; scripts that drive the app for development
 ├── tools/               translation check, app icon
 ├── pyproject.toml       dependencies (for uv)
 ├── uv.lock
