@@ -2654,7 +2654,9 @@ def main(argv=None):
     s = sub.add_parser('selftest', help='build the bundled example and compare with the verified result')
     s.add_argument('input', type=Path)
     a = ap.parse_args(argv)
-    sys.stdout.reconfigure(line_buffering=True)
+    sys.stdout.reconfigure(line_buffering=True, errors='replace')
+    if getattr(sys.stderr, 'reconfigure', None):
+        sys.stderr.reconfigure(errors='replace')    # progress lines carry ΔE00; refuse messages carry the name
     if sys.version_info < (3, 8):
         print('Python 3.8 or newer is required', file=sys.stderr)
         return 2
