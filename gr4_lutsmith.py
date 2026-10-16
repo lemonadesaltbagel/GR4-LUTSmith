@@ -3078,7 +3078,8 @@ def main(argv=None):
             return 0
     except Refused as exc:
         print(f'refused: {exc}', file=sys.stderr)
-        print('nothing was written.' if a.cmd in ('make', 'build', 'selftest') else '', file=sys.stderr)
+        if a.cmd in ('make', 'build', 'selftest'):
+            print('nothing was written.', file=sys.stderr)
         return 1
     except OSError as exc:
         print(f'error: {exc}', file=sys.stderr)
