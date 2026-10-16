@@ -1,0 +1,15 @@
+name: Fix or improvement
+about: A change you would like to see in the repo
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is missing or wrong?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: How to tell it is fixed?
+      description: A command that fails today and passes after, or a before/after.
