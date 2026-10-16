@@ -2,6 +2,7 @@
 With GR4_FIRMWARE=/path/to/fwdc248b.bin it also runs the self-test against the official file."""
 import json
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -34,6 +35,11 @@ if __name__ == '__main__':                   # helper processes of the turns imp
         if not ok:
             failures.append(name)
 
+
+    # the version says the same thing everywhere it is written
+    pyproject = (ROOT / 'pyproject.toml').read_text(encoding='utf-8')
+    packaged = re.search(r'^version = "(.*?)"', pyproject, re.M).group(1)
+    check('pyproject.toml and the engine agree on the version', packaged == gl.VERSION, f'{packaged} vs {gl.VERSION}')
 
     # the computer's language: its preferred-language list decides (not the region format)
     for prefs, want in [(['en-US', 'zh-Hans-AU'], 'English'), (['ja-JP', 'en-US'], 'Japanese'), (['zh-Hant-TW'], 'Chinese-T'),
