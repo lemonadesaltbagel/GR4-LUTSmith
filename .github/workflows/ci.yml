@@ -1,0 +1,44 @@
+# Runs the checks on every push and pull request, on the two platforms the app is built for, on the oldest
+# Python the tool supports (3.9) and the newest (3.13), as well as the one the app is built with (3.12).
+# (The App workflow runs the same checks too, but only when a release is built.)
+name: Checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-14, windows-2022]
+        python-version: ['3.12']
+        include:
+          - os: macos-14
+            python-version: '3.9'    # the floor: syntax the newer Pythons accept but 3.9 refuses (f-strings since 3.12)
+          - os: macos-14
+            python-version: '3.13'
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    env:
+      PYTHONUTF8: '1'          # UTF-8 everywhere (Windows consoles default to a legacy code page)
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - name: Set up
+        run: uv sync --python ${{ matrix.python-version }} --extra app
+      - name: Checks (no RICOH file needed)
+        shell: bash
+        run: |
+          for t in tests/test_*.py; do
+            echo "== $t"
+            uv run python "$t" || exit 1
+          done
