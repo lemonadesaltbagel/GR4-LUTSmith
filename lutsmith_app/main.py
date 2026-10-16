@@ -9,8 +9,8 @@ from pathlib import Path
 from PySide6.QtCore import QSettings, Qt, QTimer
 from PySide6.QtGui import QFont, QGuiApplication, QIcon, QImage
 from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QDialog, QFileDialog, QFrame, QGraphicsOpacityEffect,
-                               QGridLayout, QHBoxLayout, QHeaderView, QLabel, QLineEdit, QMainWindow, QProgressBar,
-                               QScrollArea, QSizePolicy, QSpinBox, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget)
+                               QGridLayout, QHBoxLayout, QHeaderView, QLabel, QLineEdit, QMainWindow,
+                               QScrollArea, QSpinBox, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget)
 
 import gr4_lutsmith as gl
 
@@ -440,7 +440,7 @@ class Window(QMainWindow):
         self.say(t('Shared look checked'))
 
     def shared_card(self):
-        sh, S = self.S.shared, self.S
+        sh = self.S.shared
         hint = (t('fitted from {file}', file=sh['lut_file']) if sh['lut_file'] else t('a fitted look')) \
             + (' · ' + t('hue sectors') if sh['hue'] else '') + (' · ' + t('colour after the curves') if sh['post'] else '')
         parts = [filecard(glyph('JSON'), sh['file'], hint, button(t('Choose another file'), 'small', self.forget_shared))]

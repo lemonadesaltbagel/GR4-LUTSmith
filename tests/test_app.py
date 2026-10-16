@@ -24,7 +24,7 @@ if __name__ == '__main__':                   # helper processes of the turns imp
     QSettings.setDefaultFormat(QSettings.Format.IniFormat)
     QSettings.setPath(QSettings.Format.IniFormat, QSettings.Scope.UserScope, tempfile.mkdtemp(prefix='gr4-lutsmith-tests-'))
     import gr4_lutsmith as gl  # noqa: E402
-    from lutsmith_app import i18n, logic, main as M, theme  # noqa: E402
+    from lutsmith_app import i18n, logic, main as M  # noqa: E402
 
     failures = []
 

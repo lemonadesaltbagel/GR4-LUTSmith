@@ -28,3 +28,16 @@ build = [
 
 [tool.uv]
 package = false
+
+[tool.ruff]
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["F"]
+
+[tool.ruff.lint.per-file-ignores]
+# these scripts exec() tests/drive_app.py, which defines app/M/shot/OUT in their globals
+"tests/flow.py" = ["F821"]
+"tests/identity.py" = ["F821"]
+# drive_app.py imports main as M for the scripts that exec() it
+"tests/drive_app.py" = ["F401"]

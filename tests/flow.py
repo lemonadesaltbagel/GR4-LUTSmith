@@ -1,9 +1,9 @@
 """Walk the whole app offscreen with real files and save a screenshot of each step (development only).
 Usage: GR4_FIRMWARE=… GR4_LUT=… [GR4_DNG=…] flow.py <folder>"""
-import os, sys, time
+import os, time
 if __name__ == '__main__':                   # helper processes of the turns import this file: they run nothing
     exec(open(os.path.join(os.path.dirname(__file__), 'drive_app.py'), encoding='utf-8').read())
-    from lutsmith_app import logic, i18n  # noqa: E402
+    from lutsmith_app import logic  # noqa: E402
 
     FW = os.environ.get('GR4_FIRMWARE')            # the official fwdc248b.bin
     LUT = os.environ.get('GR4_LUT')                 # a .cube LUT
